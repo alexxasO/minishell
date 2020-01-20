@@ -11,7 +11,11 @@ CC	= gcc
 
 RM	= rm -f
 
-SRCS	=	main.c
+SRCS	=	main.c	\
+			my_strlen.c	\
+			my_putstr.c	\
+			my_put_nbr.c	\
+			my_putchar.c
 
 OBJS	= $(SRCS:.c=.o)
 
