@@ -29,14 +29,15 @@ int minishell(char **env)
     size_t n = 0;
 
     while (1) {
-        my_putstr("$> ");
+        my_putstr("$Ceci_est_mon_shell> ");
         getline(&cmd, &n, stream);
+        cmd[my_strlen(cmd) - 1] = '\0';
         if (cmd[0] == 0) {
             my_putstr("exit");
             return 0;
         }
         else
-            interpret(env);
+            interpret(env, cmd);
     }
 }
 

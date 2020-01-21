@@ -10,13 +10,26 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <dirent.h>
+#include <string.h>
+#include <unistd.h>
+#include <errno.h>
+#include <sys/wait.h>
+#include <sys/types.h>
 
 int my_strlen(char const *str);
 int my_putstr(char const *str);
 int my_put_nbr(int nb);
 void my_putchar(char c);
 int starts_with(char const *str, char *comp);
-int interpret(char **env);
+int interpret(char **env, char *cmd);
 int find_path_number(char **env);
+char *my_strcat_malloc(char *dest, char const *src);
+int my_strcmp(char const *s1, char const *s2);
+
+typedef struct {
+    char *cmd;
+    char *full_cmd;
+} cmd_info;
 
 #endif
