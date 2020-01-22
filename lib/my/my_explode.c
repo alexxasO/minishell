@@ -36,10 +36,8 @@ char **my_explode(char *str, char sep)
             tab[i][j] = cpy[0];
             cpy++;
         }
-        printf("tab[%d] = %s\n", i, tab[i]);
         cpy++;
     }
     tab[i] = NULL;
-    printf("tab[%d] = %s\n", i, tab[i]);
     return tab;
 }
