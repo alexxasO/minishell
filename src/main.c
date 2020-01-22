@@ -34,13 +34,14 @@ int minishell(char **env)
         getline(&cmd, &n, stream);
         cmd[my_strlen(cmd) - 1] = '\0';
         av = my_explode(cmd, ' ');
-        if (cmd[0] == 0) {
-            my_putstr("exit");
-            return 0;
+        if (cmd[0] == 4) {
+            my_putstr("CTRL + D !!");
+            break;
         }
         else
             interpret(env, av);
     }
+    return 0;
 }
 
 int main(int ac, char **av, char **env)
