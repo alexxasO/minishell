@@ -24,10 +24,9 @@ static char *stock_dir(char **paths)
     return dir;
 }
 
-void launch_the_bin(char *path, char **env)
+void launch_the_bin(char *path, char**av, char **env)
 {
     int child_pid = fork();
-    char *av[] = {"ls", NULL};
 
     if (child_pid == 0) {
         if (execve(path, av, env) == -1) {
@@ -43,7 +42,7 @@ int find_the_bin(struct dirent *rd, DIR *directory, cmd_info *cmd,
 {
     while (rd) {
         if (strcmp(rd->d_name, cmd->cmd) == 0) { // strcmp
-            launch_the_bin(cmd->full_cmd, env);
+            launch_the_bin(cmd->full_cmd, cmd->args, env);
             return 0;
         }
         rd = readdir(directory);
@@ -51,14 +50,14 @@ int find_the_bin(struct dirent *rd, DIR *directory, cmd_info *cmd,
     return 1;
 }
 
-int interpret(char **env, char *cmd)
+int interpret(char **env, char **cmd)
 {
     char *paths = env[find_path_number(env)];
     char *dir;
     DIR *directory;
     struct dirent *rd;
-    cmd_info cmdinf = {cmd, NULL};
-    char *cmd_with_slash = my_strcat_malloc("/", cmd);
+    cmd_info cmdinf = {cmd[0], NULL, cmd};
+    char *cmd_with_slash = my_strcat_malloc("/", cmd[0]);
 
     paths += 5;
     while (paths[0] != '\0') {

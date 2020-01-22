@@ -11,7 +11,9 @@ SRC	=	my_putchar.c	\
 		my_strlen.c	\
 		starts_with.c	\
 		my_strcat.c	\
-		my_strcmp.c
+		my_strcmp.c	\
+		my_explode.c	\
+		my_strdup.c
 
 
 OBJ	=	$(SRC:.c=.o)

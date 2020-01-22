@@ -22,14 +22,17 @@ int my_putstr(char const *str);
 int my_put_nbr(int nb);
 void my_putchar(char c);
 int starts_with(char const *str, char *comp);
-int interpret(char **env, char *cmd);
+int interpret(char **env, char **cmd);
 int find_path_number(char **env);
 char *my_strcat_malloc(char *dest, char const *src);
 int my_strcmp(char const *s1, char const *s2);
+char **my_explode(char *str, char sep);
+char *my_strdup(char const *src);
 
 typedef struct {
     char *cmd;
     char *full_cmd;
+    char **args;
 } cmd_info;
 
 #endif

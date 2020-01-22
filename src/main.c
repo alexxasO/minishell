@@ -27,17 +27,19 @@ int minishell(char **env)
     FILE *stream = fdopen(0, "r");
     char *cmd = NULL;
     size_t n = 0;
+    char **av;
 
     while (1) {
-        my_putstr("$Ceci_est_mon_shell> ");
+        my_putstr("$The_cake_is_a_lie_shell> ");
         getline(&cmd, &n, stream);
         cmd[my_strlen(cmd) - 1] = '\0';
+        av = my_explode(cmd, ' ');
         if (cmd[0] == 0) {
             my_putstr("exit");
             return 0;
         }
         else
-            interpret(env, cmd);
+            interpret(env, av);
     }
 }
 
