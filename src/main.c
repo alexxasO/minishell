@@ -34,8 +34,7 @@ int minishell(char **env)
         getline(&cmd, &n, stream);
         cmd[my_strlen(cmd) - 1] = '\0';
         av = my_explode(cmd, ' ');
-        if (cmd[0] == 4) {
-            my_putstr("CTRL + D !!");
+        if (cmd[0] == 0) {
             break;
         }
         else
