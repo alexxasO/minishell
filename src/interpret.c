@@ -52,22 +52,23 @@ int find_the_bin(struct dirent *rd, DIR *directory, cmd_info *cmd,
 
 int interpret(char **env, char **cmd)
 {
-    char *paths = env[find_path_number(env)];
+    char *paths = env[find_path_number(env, "PATH")];
     char *dir;
     DIR *directory;
     struct dirent *rd;
     cmd_info cmdinf = {cmd[0], NULL, cmd};
     char *cmd_with_slash = my_strcat_malloc("/", cmd[0]);
+    int stop = 1;
 
-    paths += 5;
-    while (paths[0] != '\0') {
+    paths += my_strlen("PATH=");
+    while (stop) {
         dir = stock_dir(&paths);
         directory = opendir(dir);
         rd = readdir(directory);
         cmdinf.full_cmd = my_strcat_malloc(dir, cmd_with_slash);
-        if (!find_the_bin(rd, directory, &cmdinf, env))
-            break;
-        free(cmdinf.full_cmd);
+        if (!built_in_cmd(env, cmd))
+            return 0;
+        stop = find_the_bin(rd, directory, &cmdinf, env);
     }
     free(cmd_with_slash);
     free(dir);

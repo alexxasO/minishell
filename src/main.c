@@ -13,28 +13,30 @@ void display_env(char **env)
         printf("%s\n", env[i]);
 }
 
-int find_path_number(char **env)
+int find_path_number(char **env, char *name)
 {
     int i = 0;
 
-    while (!starts_with(env[i], "PATH"))
+    while (!starts_with(env[i], name) && env[i] != NULL)
         i++;
+    if (env[i] == NULL)
+        return -1;
     return i;
 }
 
 int minishell(char **env)
 {
-    FILE *stream = fdopen(0, "r");
     char *cmd = NULL;
     size_t n = 0;
     char **av;
+    int getl;
 
     while (1) {
         my_putstr("$The_cake_is_a_lie_shell> ");
-        getline(&cmd, &n, stream);
+        getl = getline(&cmd, &n, stdin);
         cmd[my_strlen(cmd) - 1] = '\0';
         av = my_explode(cmd, ' ');
-        if (cmd[0] == 0) {
+        if (getl == -1) {
             break;
         }
         else

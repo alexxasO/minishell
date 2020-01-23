@@ -12,7 +12,9 @@ CC	= gcc
 RM	= rm -f
 
 SRCS	=	src/main.c	\
-			src/interpret.c
+			src/interpret.c	\
+			src/built_in.c	\
+			src/globalfunc.c
 
 OBJS	= $(SRCS:.c=.o)
 
