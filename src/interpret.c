@@ -41,7 +41,7 @@ int find_the_bin(struct dirent *rd, DIR *directory, cmd_info *cmd,
                     char **env)
 {
     while (rd) {
-        if (strcmp(rd->d_name, cmd->cmd) == 0) { // strcmp
+        if (my_strcmp(rd->d_name, cmd->cmd) == 0) {
             launch_the_bin(cmd->full_cmd, cmd->args, env);
             return 0;
         }

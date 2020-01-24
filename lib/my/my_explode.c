@@ -9,6 +9,7 @@
 #include <stdio.h> //debug
 
 int my_strlen(char const *str);
+
 char *my_strdup(char const *src);
 
 static int count_char(char *str, char ch)
@@ -17,7 +18,7 @@ static int count_char(char *str, char ch)
 
     for (int i = 0; str[i] != '\0'; i++)
         if (str[i] == ch)
-            count ++;
+            count++;
     return count;
 }
 

@@ -30,6 +30,7 @@ char **my_explode(char *str, char sep);
 char *my_strdup(char const *src);
 char *find_env_name(char *env_line);
 int built_in_cmd(char **env, char **av);
+char *my_strcat(char *dest, char const *src);
 
 typedef struct {
     char *cmd;

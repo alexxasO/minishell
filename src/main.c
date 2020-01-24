@@ -9,15 +9,17 @@
 
 void display_env(char **env)
 {
-    for (int i = 0; env[i] != NULL; i++)
-        printf("%s\n", env[i]);
+    for (int i = 0; env[i] != NULL; i++) {
+        my_putstr(env[i]);
+        my_putchar('\n');
+    }
 }
 
 int find_path_number(char **env, char *name)
 {
     int i = 0;
 
-    while (!starts_with(env[i], name) && env[i] != NULL)
+    while (env[i] != NULL && !(starts_with(env[i], name)))
         i++;
     if (env[i] == NULL)
         return -1;

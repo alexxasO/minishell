@@ -7,18 +7,36 @@
 
 #include "minishell1.h"
 
-void replace_env(int pos, char *new_var, char **env)
+static void replace_env(int pos, char **av, char **env)
 {
-    env[pos] = new_var;
+    int len = my_strlen(av[1]) + my_strlen(av[2]) + 1;
+    char *new_env;
+    char *dest = malloc(sizeof(char) * len + 1);
+
+    dest[0] = '\0';
+    new_env = my_strcat(dest, av[1]);
+    new_env = my_strcat(new_env, "=");
+    new_env = my_strcat(new_env, av[2]);
+    env[pos] = new_env;
 }
 
-void my_setenv(char **env, char *env_to_set)
+// void my_setenv(char **env, char *env_to_set)
+// {
+//     char *beg = find_env_name(env_to_set);
+//     int pos = find_path_number(env, beg);
+
+//     if (pos >= 0)
+//         replace_env(pos, env_to_set, env);
+//     // else
+//     //     //set new env
+// }
+
+void my_setenv(char **env, char **av)
 {
-    char *beg = find_env_name(env_to_set);
-    int pos = find_path_number(env, beg);
+    int pos = find_path_number(env, av[1]);
 
     if (pos >= 0)
-        replace_env(pos, env_to_set, env);
+        replace_env(pos, av, env);
     // else
     //     //set new env
 }
@@ -26,7 +44,7 @@ void my_setenv(char **env, char *env_to_set)
 int built_in_cmd(char **env, char **av)
 {
     if (!my_strcmp(av[0], "setenv")) {
-        my_putstr("SETENV !!!\n");
+        my_setenv(env, av);
         return 0;
     }
     return 1;
