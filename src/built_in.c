@@ -53,5 +53,9 @@ int built_in_cmd(char **env, char **av)
         my_setenv(env, av);
         return 0;
     }
+    if (!my_strcmp(av[0], "env")) {
+        display_env(env);
+        return 0;
+    }
     return 1;
 }

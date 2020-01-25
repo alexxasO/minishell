@@ -31,6 +31,7 @@ char *my_strdup(char const *src);
 char *find_env_name(char *env_line);
 int built_in_cmd(char **env, char **av);
 char *my_strcat(char *dest, char const *src);
+void display_env(char **env);
 
 typedef struct {
     char *cmd;

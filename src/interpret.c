@@ -61,7 +61,7 @@ int interpret(char **env, char **cmd)
     int stop = 1;
 
     paths += my_strlen("PATH=");
-    while (stop) {
+    while (stop && my_strlen(paths) > 0) {
         dir = stock_dir(&paths);
         directory = opendir(dir);
         rd = readdir(directory);
