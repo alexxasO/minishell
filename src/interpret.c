@@ -24,7 +24,7 @@ static char *stock_dir(char **paths)
     return dir;
 }
 
-void launch_the_bin(char *path, char**av, char **env)
+void launch_the_bin(char *path, char **av, char **env)
 {
     int child_pid = fork();
 
@@ -37,6 +37,10 @@ void launch_the_bin(char *path, char**av, char **env)
     waitpid(child_pid, NULL, 0);
 }
 
+
+//TODO : si commence par un '/' on cherche dans le path defini par le user,
+//si commence par un . on cherche l'exec dans le dossier actuel
+//(attention il faut avoir les droit d'exec)
 int find_the_bin(struct dirent *rd, DIR *directory, cmd_info *cmd,
                     char **env)
 {
@@ -50,9 +54,8 @@ int find_the_bin(struct dirent *rd, DIR *directory, cmd_info *cmd,
     return 1;
 }
 
-int interpret(char **env, char **cmd)
+void run_from_env(char **env, char **cmd, char *paths)
 {
-    char *paths = env[find_path_number(env, "PATH")];
     char *dir;
     DIR *directory;
     struct dirent *rd;
@@ -67,10 +70,35 @@ int interpret(char **env, char **cmd)
         rd = readdir(directory);
         cmdinf.full_cmd = my_strcat_malloc(dir, cmd_with_slash);
         if (!built_in_cmd(env, cmd))
-            return 0;
+            break;
         stop = find_the_bin(rd, directory, &cmdinf, env);
     }
     free(cmd_with_slash);
     free(dir);
-    return 0;
+}
+
+void run_from_path(char **env, char **cmd)
+{
+    if (access(cmd[0], X_OK) == -1) {
+        my_putstr(cmd[0]);
+        my_putstr(": Command not found.\n");
+    }
+    else
+        launch_the_bin(cmd[0], cmd, env);
+}
+
+int interpret(char **env, char **cmd)
+{
+    char *paths;
+
+    if (cmd[0][0] == '/') {
+        run_from_path(env, cmd);
+        return 0;
+    }
+    if (find_path_number(env, "PATH") != -1) {
+        paths = env[find_path_number(env, "PATH")];
+        run_from_env(env, cmd, paths);
+        return 0;
+    }
+    return 84;
 }

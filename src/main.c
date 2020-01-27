@@ -38,7 +38,7 @@ int minishell(char **env)
         getl = getline(&cmd, &n, stdin);
         cmd[my_strlen(cmd) - 1] = '\0';
         av = my_explode(cmd, ' ');
-        if (getl == -1) {
+        if (getl == -1 || !(my_strcmp(cmd, "exit"))) {
             break;
         }
         else

@@ -20,7 +20,7 @@ static void replace_env(int pos, char **av, char **env)
     env[pos] = new_env;
 }
 
-void create_env(char **env, char **av)
+static void create_env(char **env, char **av)
 {
     int len = my_strlen(av[1]) + my_strlen(av[2]) + 1;
     char *new_env;
@@ -31,7 +31,7 @@ void create_env(char **env, char **av)
     new_env = my_strcat(dest, av[1]);
     new_env = my_strcat(new_env, "=");
     new_env = my_strcat(new_env, av[2]);
-    while(env[i] != NULL)
+    while (env[i] != NULL)
         i++;
     env[i] = new_env;
     env[i + 1] = NULL;
