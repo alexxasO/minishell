@@ -100,5 +100,7 @@ int interpret(char **env, char **cmd)
         run_from_env(env, cmd, paths);
         return 0;
     }
+    if (!built_in_cmd(env, cmd))
+        return 0;
     return 84;
 }
