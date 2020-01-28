@@ -43,14 +43,21 @@ static void create_env(char **env, char **av)
     env[i + 1] = NULL;
 }
 
-void my_setenv(char **env, char **av)
+int my_setenv(char **env, char **av)
 {
+    int ac = 0;
     int pos = find_path_number(env, av[1]);
 
+    for (; av[ac] != NULL; ac++);
+    if (ac > 3) {
+        my_putstr("setenv: Too many arguments.\n");
+        return 84;
+    }
     if (pos >= 0)
         replace_env(pos, av, env);
     else
         create_env(env, av);
+    return 0;
 }
 
 int my_unsetenv(char **env, char **av)
