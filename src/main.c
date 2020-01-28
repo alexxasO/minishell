@@ -19,6 +19,8 @@ int find_path_number(char **env, char *name)
 {
     int i = 0;
 
+    if (!name || !env)
+        return -2;
     while (env[i] != NULL && !(starts_with(env[i], name)))
         i++;
     if (env[i] == NULL)

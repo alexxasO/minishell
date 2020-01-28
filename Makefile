@@ -30,14 +30,14 @@ $(NAME): $(LIB) $(OBJS)
 	 $(CC) $(OBJS) -o $(NAME) $(CFLAGS)
 
 clean:
-	make -C lib/my clean
+	@make -C lib/my clean --no-print-directory
 	$(RM) $(OBJS)
 
 $(LIB):
-	make -C lib/my
+	@make -C lib/my --no-print-directory
 
 fclean: clean
-	make -C lib/my fclean
+	@make -C lib/my fclean --no-print-directory
 	$(RM) $(NAME)
 
 re: fclean all
