@@ -10,7 +10,7 @@
 static int find_the_bin(struct dirent *rd, DIR *directory, cmd_info *cmd,
                     char **env)
 {
-    while (rd) {
+    while (rd && directory) {
         if (my_strcmp(rd->d_name, cmd->cmd) == 0) {
             launch_the_bin(cmd->full_cmd, cmd->args, env);
             return 0;
@@ -64,7 +64,8 @@ void run_from_env(char **env, char **cmd, char *paths)
     while (stop && my_strlen(paths) > 0) {
         dir = stock_dir(&paths);
         directory = opendir(dir);
-        rd = readdir(directory);
+        if (directory)
+            rd = readdir(directory);
         cmdinf.full_cmd = my_strcat_malloc(dir, cmd_with_slash);
         if (!built_in_cmd(env, cmd))
             break;
