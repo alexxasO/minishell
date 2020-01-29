@@ -37,10 +37,6 @@ void launch_the_bin(char *path, char **av, char **env)
     waitpid(child_pid, NULL, 0);
 }
 
-
-//TODO : si commence par un '/' on cherche dans le path defini par le user,
-//si commence par un . on cherche l'exec dans le dossier actuel
-//(attention il faut avoir les droit d'exec)
 int find_the_bin(struct dirent *rd, DIR *directory, cmd_info *cmd,
                     char **env)
 {
@@ -73,6 +69,10 @@ void run_from_env(char **env, char **cmd, char *paths)
             break;
         stop = find_the_bin(rd, directory, &cmdinf, env);
     }
+    if (stop == 1) {
+        my_putstr(cmd[0]);
+        my_putstr(": Command not found.\n");
+    }
     free(cmd_with_slash);
     free(dir);
 }
@@ -102,5 +102,7 @@ int interpret(char **env, char **cmd)
     }
     if (!built_in_cmd(env, cmd))
         return 0;
+    my_putstr(cmd[0]);
+    my_putstr(": Command not found.\n");
     return 84;
 }

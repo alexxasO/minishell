@@ -14,7 +14,9 @@ RM	= rm -f
 SRCS	=	src/main.c	\
 			src/interpret.c	\
 			src/built_in.c	\
-			src/globalfunc.c
+			src/globalfunc.c	\
+			src/setenv.c	\
+			src/error.c
 
 OBJS	= $(SRCS:.c=.o)
 
