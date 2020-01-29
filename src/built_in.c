@@ -31,9 +31,12 @@ int my_cd(char **env, char **av)
         my_putstr("cd: Too many arguments.\n");
         return 84;
     }
-    if (ac == 2)
+    if (ac == 2) {
         if (chdir(av[1])  < 0)
             perror(strerror(errno));
+        else
+            cd_setenv(env, av);
+    }
     return 0;
 }
 

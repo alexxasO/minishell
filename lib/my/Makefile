@@ -18,6 +18,8 @@ SRC	=	my_putchar.c	\
 
 OBJ	=	$(SRC:.c=.o)
 
+CFLAGS = -g
+
 MY	=	my.h
 
 NAME	=	libmy.a

@@ -16,6 +16,9 @@
 #include <errno.h>
 #include <sys/wait.h>
 #include <sys/types.h>
+#include <sys/stat.h>
+
+#define READ_SIZE 12345
 
 int my_strlen(char const *str);
 int my_putstr(char const *str);
@@ -33,6 +36,9 @@ int built_in_cmd(char **env, char **av);
 char *my_strcat(char *dest, char const *src);
 void display_env(char **env);
 int my_setenv(char **env, char **av);
+void run_from_env(char **env, char **cmd, char *paths);
+void launch_the_bin(char *path, char **av, char **env);
+int cd_setenv(char **env, char **av);
 
 typedef struct {
     char *cmd;

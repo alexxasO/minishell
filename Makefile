@@ -16,7 +16,9 @@ SRCS	=	src/main.c	\
 			src/built_in.c	\
 			src/globalfunc.c	\
 			src/setenv.c	\
-			src/error.c
+			src/error.c	\
+			src/run_from_env.c	\
+			src/cd_setenv.c 	\
 
 OBJS	= $(SRCS:.c=.o)
 
