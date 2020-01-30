@@ -53,6 +53,10 @@ int my_setenv(char **env, char **av)
         my_putstr("setenv: Too many arguments.\n");
         return 84;
     }
+    if (ac < 2) {
+        display_env(env);
+        return 84;
+    }
     if (pos >= 0)
         replace_env(pos, av, env);
     else
