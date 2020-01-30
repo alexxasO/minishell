@@ -34,7 +34,7 @@ int interpret(char **env, char **cmd)
 {
     char *paths;
 
-    if (cmd[0][0] == '/') {
+    if (cmd[0][0] == '/' || cmd[0][0] == '.') {
         run_from_path(env, cmd);
         return 0;
     }
