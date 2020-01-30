@@ -18,3 +18,13 @@ int my_putstr(char const *str)
     write(1, str, my_strlen(str));
     return (0);
 }
+
+int my_putstr_error(char const *str)
+{
+    if (!str) {
+        my_putstr("(null)");
+        return 0;
+    }
+    write(2, str, my_strlen(str));
+    return (0);
+}

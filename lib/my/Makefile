@@ -8,8 +8,10 @@
 ECHO =		/bin/echo -e
 DEFAULT =	"\033[00m"
 GREEN =		"\033[0;32m"
+BGREEN =	"\033[1;32m"
 TEAL =		"\033[1;36m"
 RED =		"\033[0;31m"
+BRED =		"\033[1;31m"
 
 SRC	=	my_putchar.c	\
 		my_put_nbr.c	\
@@ -49,5 +51,5 @@ re :	fclean all
 
 .c.o:
 		@gcc $(CFLAGS) -c -o $@ $^ && $(ECHO) \
-		$(GREEN)"[OK]"$(TEAL) $< $(DEFAULT) \
-		|| $(ECHO) $(RED)"[ERROR]"$(TEAL) $< $(DEFAULT)
+		$(BGREEN)"[OK]"$(TEAL) `basename $^` $(DEFAULT) \
+		|| $(ECHO) $(BRED)"[ERROR]"$(TEAL) $< $(DEFAULT)

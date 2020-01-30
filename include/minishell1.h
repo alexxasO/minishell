@@ -18,6 +18,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <signal.h>
+#include <string.h>
 
 #define READ_SIZE 12345
 #define UN __attribute__((unused))
@@ -25,6 +26,7 @@
 int my_strlen(char const *str);
 int my_putstr(char const *str);
 int my_put_nbr(int nb);
+int my_putstr_error(char const *str);
 void my_putchar(char c);
 int starts_with(char const *str, char *comp);
 int interpret(char **env, char **cmd);

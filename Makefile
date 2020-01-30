@@ -66,5 +66,5 @@ debug: re
 
 .c.o:
 		@gcc $(CFLAGS) -c -o $@ $^ && $(ECHO) \
-		$(GREEN)"[OK]"$(TEAL) $< $(DEFAULT) \
-		|| $(ECHO) $(RED)"[ERROR]"$(TEAL) $< $(DEFAULT)
+		$(BGREEN)"[OK]"$(TEAL) `basename $^` $(DEFAULT) \
+		|| $(ECHO) $(BRED)"[ERROR]"$(TEAL) $< $(DEFAULT)

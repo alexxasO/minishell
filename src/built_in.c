@@ -14,7 +14,6 @@ static int check_cd_error(char **env)
          return 0;
      }
      return 1;
-
 }
 
 static void prt_err_cd(char *str)
@@ -24,12 +23,12 @@ static void prt_err_cd(char *str)
     perror(NULL);
 }
 
-int my_unsetenv(char **env, char **av)
+int my_unsetenv(char **env, char *av)
 {
     int i = 0;
-    int pos = find_path_number(env, av[1]);
+    int pos = find_path_number(env, av);
 
-    if (!av[1])
+    if (!av)
         my_putstr("unsetenv: Too few arguments.\n");
     for (; env[i] != NULL; i++);
     if (i == 0 || pos < 0)
@@ -73,7 +72,8 @@ int built_in_cmd(char **env, char **av)
         return 0;
     }
     if (!my_strcmp(av[0], "unsetenv")) {
-        my_unsetenv(env, av);
+        for (int i = 1; av[i] != NULL; i++)
+            my_unsetenv(env, av[i]);
         return 0;
     }
     if (!my_strcmp(av[0], "cd")) {

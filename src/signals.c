@@ -7,9 +7,14 @@
 
 #include "minishell1.h"
 
-void sigsev_handler(int sig)
+int sigsev_handler(int sig)
 {
-    my_putstr("caught signal ");
-    my_put_nbr(sig);
-    my_putchar('\n');
+    if (sig == 8) {
+        my_putstr_error("floating exception\n");
+        return 1;
+    } else if (sig) {
+        my_putstr_error(strsignal(sig));
+        return 1;
+    }
+    return 0;
 }
