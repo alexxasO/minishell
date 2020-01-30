@@ -15,6 +15,6 @@ int my_putstr(char const *str)
         my_putstr("(null)");
         return 0;
     }
-    write(0, str, my_strlen(str));
+    write(1, str, my_strlen(str));
     return (0);
 }

@@ -36,12 +36,11 @@ int minishell(char **env)
     int getl;
 
     while (1) {
-        my_putstr("$The_cake_is_a_lie_shell> ");
+        write(0, "$The_cake_is_a_lie_shell> ", 27);
         getl = getline(&cmd, &n, stdin);
         cmd[my_strlen(cmd) - 1] = '\0';
         av = my_explode(cmd, ' ');
         if (getl == -1 || !(my_strcmp(cmd, "exit"))) {
-            my_putstr("exit\n");
             break;
         }
         else
