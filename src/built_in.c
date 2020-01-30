@@ -9,17 +9,17 @@
 
 static int check_cd_error(char **env)
 {
-     if (find_path_number(env, "HOME=") < 0) {
-         my_putstr("cd: No home directory.\n");
-         return 0;
-     }
-     return 1;
+    if (find_path_number(env, "HOME=") < 0) {
+        my_putstr_error("cd: No home directory.\n");
+        return 0;
+    }
+    return 1;
 }
 
 static void prt_err_cd(char *str)
 {
-    my_putstr(str);
-    my_putstr(": ");
+    my_putstr_error(str);
+    my_putstr_error(": ");
     perror(NULL);
 }
 
@@ -29,7 +29,7 @@ int my_unsetenv(char **env, char *av)
     int pos = find_path_number(env, av);
 
     if (!av)
-        my_putstr("unsetenv: Too few arguments.\n");
+        my_putstr_error("unsetenv: Too few arguments.\n");
     for (; env[i] != NULL; i++);
     if (i == 0 || pos < 0)
         return 0;
@@ -44,7 +44,7 @@ int my_cd(char **env, char **av)
 
     for (; av[ac] != NULL; ac++);
     if (ac > 2) {
-        my_putstr("cd: Too many arguments.\n");
+        my_putstr_error("cd: Too many arguments.\n");
     }
     if (ac == 2) {
         if (chdir(av[1]) < 0)

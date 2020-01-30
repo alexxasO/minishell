@@ -10,8 +10,12 @@ DEFAULT =	"\033[00m"
 GREEN =		"\033[0;32m"
 BGREEN =	"\033[1;32m"
 TEAL =		"\033[1;36m"
+ORANGE =	"\e[1;33m"
 RED =		"\033[0;31m"
 BRED =		"\033[1;31m"
+FLASH = 	"\e[5;30m"
+BYELLOW =	"\e[1;33m"
+BMAGENTA =	"\e[1;35m"
 
 SRC	=	my_putchar.c	\
 		my_put_nbr.c	\
@@ -52,5 +56,5 @@ re :	fclean all
 
 .c.o:
 		@gcc $(CFLAGS) -c -o $@ $^ && $(ECHO) \
-		$(BGREEN)"[OK]"$(TEAL) `basename $^` $(DEFAULT) \
-		|| $(ECHO) $(BRED)"[ERROR]"$(TEAL) $< $(DEFAULT)
+		$(BGREEN)"[OK]"$(BYELLOW) `basename $^` $(DEFAULT) \
+		|| $(ECHO) $(BRED)"[ERROR]"$(BYELLOW) $< $(DEFAULT)
