@@ -17,6 +17,7 @@
 #include <sys/wait.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <signal.h>
 
 #define READ_SIZE 12345
 

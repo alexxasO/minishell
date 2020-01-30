@@ -19,6 +19,7 @@ SRCS	=	src/main.c	\
 			src/error.c	\
 			src/run_from_env.c	\
 			src/cd_setenv.c 	\
+			src/signals.c
 
 OBJS	= $(SRCS:.c=.o)
 
