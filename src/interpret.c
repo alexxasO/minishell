@@ -34,12 +34,16 @@ int interpret(char **env, char **cmd)
 {
     char *paths;
 
+    if (!built_in_cmd(env, cmd))
+        return 0;
     if (cmd[0][0] == '/' || cmd[0][0] == '.') {
         run_from_path(env, cmd);
         return 0;
     }
-    if (!built_in_cmd(env, cmd))
+    if (str_contain(cmd[0], '/')) {
+        run_from_path(env, cmd);
         return 0;
+    }
     if (find_path_number(env, "PATH") != -1) {
         paths = env[find_path_number(env, "PATH")];
         run_from_env(env, cmd, paths);

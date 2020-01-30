@@ -43,6 +43,7 @@ int minishell(char **env)
         cmd[my_strlen(cmd) - 1] = '\0';
         av = my_explode(cmd, ' ');
         if (getl == -1 || !(my_strcmp(cmd, "exit"))) {
+            my_putstr("exit\n");
             break;
         }
         else
