@@ -41,20 +41,23 @@ CFLAGS += -L./lib -lmy
 all: $(NAME)
 
 $(NAME): $(LIB) $(OBJS)
-	@$(CC) $(OBJS) -o $(NAME) $(CFLAGS)
+	@$(CC) $(OBJS) -o $(NAME) $(CFLAGS) && \
+	$(ECHO) $(BGREEN) "Build Complete !" $(DEFAULT) \
+	|| $(ECHO) $(BRED) "Build Failed !" $(DEFAULT)
 
 clean:
 	@make -C lib/my clean --no-print-directory
 	@$(RM) $(OBJS)
-	@$(ECHO) $(ORANGE) "clean"
+	@$(ECHO) $(ORANGE) "clean" $(DEFAULT)
 
 $(LIB):
 	@make -C lib/my --no-print-directory
+	@$(ECHO) $(BGREEN) "Lib Complete !\n"
 
 fclean: clean
 	@make -C lib/my fclean --no-print-directory
 	@$(RM) $(NAME)
-	@$(ECHO) $(ORANGE) "fclean"
+	@$(ECHO) $(ORANGE) "fclean" $(DEFAULT)
 
 re: fclean all
 
