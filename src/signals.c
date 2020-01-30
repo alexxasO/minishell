@@ -9,5 +9,7 @@
 
 void sigsev_handler(int sig)
 {
-    printf("caught signal %d\n", sig);
+    my_putstr("caught signal ");
+    my_put_nbr(sig);
+    my_putchar('\n');
 }

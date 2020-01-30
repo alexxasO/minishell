@@ -38,7 +38,7 @@ int minishell(char **env)
     while (1) {
         write(0, "$The_cake_is_a_lie_shell> ", 27);
         getl = getline(&cmd, &n, stdin);
-        while(cmd[0] == ' ')
+        while(cmd[0] == ' ' || cmd[0] == '\t')
             cmd++;
         cmd[my_strlen(cmd) - 1] = '\0';
         av = my_explode(cmd, ' ');
