@@ -7,7 +7,7 @@
 
 #include "minishell1.h"
 
-int cd_setenv(char **env, char **av)
+int cd_setenv(char **env)
 {
     int len = READ_SIZE;
     char *buf = malloc(sizeof(char) * len);

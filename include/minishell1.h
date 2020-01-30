@@ -20,6 +20,7 @@
 #include <signal.h>
 
 #define READ_SIZE 12345
+#define UN __attribute__((unused))
 
 int my_strlen(char const *str);
 int my_putstr(char const *str);
@@ -39,7 +40,7 @@ void display_env(char **env);
 int my_setenv(char **env, char **av);
 void run_from_env(char **env, char **cmd, char *paths);
 void launch_the_bin(char *path, char **av, char **env);
-int cd_setenv(char **env, char **av);
+int cd_setenv(char **env);
 
 typedef struct {
     char *cmd;

@@ -7,6 +7,23 @@
 
 #include "minishell1.h"
 
+static int check_cd_error(char **env)
+{
+     if (find_path_number(env, "HOME=") < 0) {
+         my_putstr("cd: No home directory.\n");
+         return 0;
+     }
+     return 1;
+
+}
+
+static void prt_err_cd(char *str)
+{
+    my_putstr(str);
+    my_putstr(": ");
+    perror(NULL);
+}
+
 int my_unsetenv(char **env, char **av)
 {
     int i = 0;
@@ -29,13 +46,18 @@ int my_cd(char **env, char **av)
     for (; av[ac] != NULL; ac++);
     if (ac > 2) {
         my_putstr("cd: Too many arguments.\n");
-        return 84;
     }
     if (ac == 2) {
-        if (chdir(av[1])  < 0)
-            perror(strerror(errno));
+        if (chdir(av[1]) < 0)
+            prt_err_cd(av[1]);
         else
-            cd_setenv(env, av);
+            cd_setenv(env);
+    }
+    if (ac == 1 && check_cd_error(env)) {
+        if (chdir(env[find_path_number(env, "HOME=")] + 5) < 0)
+            prt_err_cd(env[find_path_number(env, "HOME=")] + 5);
+        else
+            cd_setenv(env);
     }
     return 0;
 }

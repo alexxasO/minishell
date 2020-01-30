@@ -51,7 +51,7 @@ int minishell(char **env)
     return 0;
 }
 
-int main(int ac, char **av, char **env)
+int main(int ac, UN char **av, char **env)
 {
     if (ac > 1)
         return 84;
