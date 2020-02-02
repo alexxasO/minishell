@@ -10,6 +10,7 @@
 void launch_the_bin(char *path, char **av, char **env)
 {
     int child_pid = fork();
+    int status = 0;
 
     if (child_pid == 0) {
         if (execve(path, av, env) == -1) {
@@ -17,7 +18,10 @@ void launch_the_bin(char *path, char **av, char **env)
             exit(0);
         }
     }
-    waitpid(child_pid, NULL, 0);
+    waitpid(child_pid, &status, 0);
+    if (WIFSIGNALED(status)) {
+        sigsev_handler(status);
+    }
 }
 
 void run_from_path(char **env, char **cmd)

@@ -57,6 +57,7 @@ void run_from_env(char **env, char **cmd, char *paths);
 void launch_the_bin(char *path, char **av, char **env);
 int cd_setenv(char **env);
 int str_contain(char *str_to_check, char char_to_find);
+int sigsev_handler(int sig);
 
 typedef struct {
     char *cmd;
