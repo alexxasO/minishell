@@ -32,8 +32,10 @@ char **my_explode(char *str, char sep)
 
     if (str == NULL)
         return NULL;
-    for (i = 0; i < sep_count + 1; i++) {
+    for (i = 0; i < sep_count + 1 && cpy[0] != '\0'; i++) {
         tab[i] = malloc(sizeof(char) * my_strlen(cpy) + 1);
+        while (cpy[0] == sep)
+            cpy++;
         for (j = 0; cpy[0] != sep && cpy[0] != '\0'; j++) {
             tab[i][j] = cpy[0];
             cpy++;
