@@ -19,7 +19,7 @@ void launch_the_bin(char *path, char **av, char **env)
         }
     }
     waitpid(child_pid, &status, 0);
-    if (WIFSIGNALED(status)) {
+    if (WIFSIGNALED(status) && !WIFEXITED(status)) {
         sigsev_handler(status);
     }
 }
