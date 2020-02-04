@@ -16,6 +16,24 @@ static int check_letter(char c)
     return 0;
 }
 
+static int check_args_error(int ac, char **env, char **av)
+{
+    if (ac > 3) {
+        my_putstr_error("setenv: Too many arguments.\n");
+        return 84;
+    }
+    if (ac < 2) {
+        display_env(env);
+        return 84;
+    }
+    if (!my_isalphanum(av[1])) {
+        my_putstr_error("setenv: Variable name ");
+        my_putstr_error("must contain alphanumeric characters.\n");
+        return 84;
+    }
+    return 0;
+}
+
 static void replace_env(int pos, char **av, char **env)
 {
     int len = my_strlen(av[1]) + my_strlen(av[2]) + 1;
@@ -58,14 +76,8 @@ int my_setenv(char **env, char **av)
     int pos = find_path_number(env, av[1]);
 
     for (; av[ac] != NULL; ac++);
-    if (ac > 3) {
-        my_putstr_error("setenv: Too many arguments.\n");
+    if (check_args_error(ac, env, av) == 84)
         return 84;
-    }
-    if (ac < 2) {
-        display_env(env);
-        return 84;
-    }
     if (check_letter(av[1][0]))
         return 0;
     if (pos >= 0)

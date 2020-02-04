@@ -39,6 +39,8 @@
 int my_strlen(char const *str);
 int my_putstr(char const *str);
 int my_put_nbr(int nb);
+int my_isalpha(char *str);
+int my_isalphanum(char *str);
 int my_putstr_error(char const *str);
 void my_putchar(char c);
 int starts_with(char const *str, char *comp);

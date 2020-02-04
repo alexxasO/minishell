@@ -41,7 +41,6 @@ char **my_explode(char *str, char sep)
             cpy++;
         }
         tab[i][j] = '\0';
-        cpy++;
     }
     tab[i] = NULL;
     return tab;
