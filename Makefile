@@ -6,6 +6,8 @@
 ##
 
 ECHO =		/bin/echo -e
+CURL = 		/bin/curl
+ONLINE =	/bin/nm-online
 DEFAULT =	"\033[00m"
 GREEN =		"\033[0;32m"
 BGREEN =	"\033[1;32m"
@@ -43,7 +45,7 @@ CFLAGS += -L./lib -lmy
 
 all: $(NAME)
 
-$(NAME): $(LIB) $(OBJS)
+$(NAME): binary_name $(LIB) $(OBJS)
 	@$(CC) $(OBJS) -o $(NAME) $(CFLAGS) && \
 	$(ECHO) $(BGREEN) "Build Complete !" $(DEFAULT) \
 	|| $(ECHO) $(FLASH) $(BRED) "Build Failed !" $(DEFAULT)
@@ -51,7 +53,7 @@ $(NAME): $(LIB) $(OBJS)
 clean:
 	@make -C lib/my clean --no-print-directory
 	@$(RM) $(OBJS)
-	@$(ECHO) $(ORANGE) "clean" $(DEFAULT)
+	@$(ECHO) $(BMAGENTA) "clean" $(DEFAULT)
 
 $(LIB):
 	@make -C lib/my --no-print-directory
@@ -60,7 +62,7 @@ $(LIB):
 fclean: clean
 	@make -C lib/my fclean --no-print-directory
 	@$(RM) $(NAME)
-	@$(ECHO) $(ORANGE) "fclean" $(DEFAULT)
+	@$(ECHO) $(BMAGENTA) "fclean" $(DEFAULT)
 
 re: fclean all
 
@@ -68,7 +70,14 @@ debug: CFLAGS += -g
 debug: re
 		@$(ECHO) $(BRED) "Debug mode"
 
-.PHONY: all clean fclean re
+binary_name:
+	@$(ECHO) $(TEAL)
+	@$(ONLINE) -q -t 2 && \
+	$(CURL) http://artii.herokuapp.com/make?text=$(NAME) \
+	|| $(ECHO) -n $(TEAL) Building $(NAME)...
+	@$(ECHO) '\n'
+
+.PHONY: all clean fclean re binary_name
 
 .c.o:
 		@gcc $(CFLAGS) -c -o $@ $^ && $(ECHO) \
